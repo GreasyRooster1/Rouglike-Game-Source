@@ -4,14 +4,11 @@ import Game.Scenes.GameScene.Entites.ExpBar.ExpBar;
 import Game.Scenes.GameScene.Entites.GroundTile.GroundTile;
 import Game.Scenes.GameScene.Entites.Player.Player;
 import Game.Scenes.GameScene.Entites.HealthBar.HealthBar;
+import Game.Scenes.GameScene.Entites.StatsButton.StatsButton;
 import Game.Startup;
-import System.Entity.BaseEntity.Entity;
-import System.Logging.Logger;
 import System.Scene.Scene;
-import System.Setup.Setup;
 
 import static Game.Scenes.GameScene.Entites.Enemy.Spawning.EnemySpawning.spawnEnemies;
-import static processing.core.PConstants.RIGHT;
 
 public class GameScene extends Scene {
     public Player player;
@@ -24,7 +21,7 @@ public class GameScene extends Scene {
     public void onStartup(){
         name = "gameScene";
         addEntity(new GroundTile(2,2));
-        setupHealth();
+        setupUI();
         setupGround();
         setupEXP();
     }
@@ -37,8 +34,9 @@ public class GameScene extends Scene {
     public void everyFrame() {
         spawnEnemies();
     }
-    void setupHealth(){
+    void setupUI(){
         progressBar = (HealthBar)addEntity(new HealthBar(0,0));
+        addEntity(new StatsButton(0, 460));
     }
     void setupEXP(){
         expBar = (ExpBar) addEntity(new ExpBar(0,490));

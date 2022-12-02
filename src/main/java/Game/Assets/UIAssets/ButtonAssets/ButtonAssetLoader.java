@@ -12,5 +12,6 @@ public class ButtonAssetLoader {
         TextureLoader.registerTexture("Assets\\UI\\Buttons\\OptionsButton\\Basic.png", "UI.buttons.optionsButton.basic");
         TextureLoader.registerTexture("Assets\\UI\\Buttons\\BackButton\\Basic.png", "UI.buttons.backButton.basic");
         TextureLoader.registerTexture("Assets\\UI\\Buttons\\DeployButton\\Basic.png", "UI.buttons.deployButton.basic");
+        TextureLoader.registerTexture("Assets\\UI\\Buttons\\StatsButton\\Basic.png", "UI.buttons.statsButton.basic");
     }
 }
