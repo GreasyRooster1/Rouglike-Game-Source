@@ -27,6 +27,7 @@ public class GameScene extends Scene {
     }
     public void onSwitch(){
         getCamera().setCamLock(player);
+        setPaused(false);
     }
     public void newGame(){
         player = (Player) addEntity(Startup.playerType);

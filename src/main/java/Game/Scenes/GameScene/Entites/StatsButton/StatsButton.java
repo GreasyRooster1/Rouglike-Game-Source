@@ -7,8 +7,9 @@ import System.Entity.BaseEntity.Entity;
 import System.Entity.UI.Button.Button;
 import System.Logging.Logger;
 import System.Setup.Setup;
+import processing.core.PConstants;
 
-public class StatsButton extends Button{
+public class StatsButton extends Entity{
     public StatsButton(float xa, float ya) {
         super(xa, ya);
         setW(32);
@@ -18,7 +19,9 @@ public class StatsButton extends Button{
     public void onStartup(){
         setRender(new StatsButtonRender());
     }
-    public void onButtonClick(int button){
-
+    public void onMouseClickedSelf(int button){
+        if(button== PConstants.LEFT) {
+            Setup.getSceneManager().changeScene("statsScene");
+        }
     }
 }
