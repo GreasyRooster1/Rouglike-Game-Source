@@ -16,6 +16,7 @@ public class Enemy extends Entity {
     public float SPD,ATK,DEF,HIT_SPEED,MAX_HEALTH,EXP_VALUE;
     float health;
     float hitTimer;
+    private String texturePath;
     public Enemy(float xa, float ya) {
         super(xa, ya);
         hitTimer = 0;
@@ -28,8 +29,8 @@ public class Enemy extends Entity {
         EXP_VALUE = 1;
         setXvel(0);
         setYvel(0);
-        setW(20);
-        setH(20);
+        setW(32);
+        setH(32);
         setFriction(0.6f);
         EnemySpawning.enemyCount++;
     }
@@ -49,7 +50,7 @@ public class Enemy extends Entity {
             if(DamageEntity.class.isAssignableFrom(e.getClass())){
                 if(collision(getX(),getY(),getW(),getH(),e.getX(),e.getY(),e.getW(),e.getH())) {
                     e.kill();
-                    health -= 20;
+                    health -= ((DamageEntity) e).getDamage();
                     float x = currentScene.player.getX();
                     float y = currentScene.player.getY();
                     float dir = PApplet.atan2(getY()-y,getX()-x);
@@ -66,7 +67,7 @@ public class Enemy extends Entity {
         }
 
     }
-    void movement(){
+    public void movement(){
         PApplet applet = Setup.getApplet();
         GameScene currentScene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");
         float x = currentScene.player.getX();
@@ -85,5 +86,13 @@ public class Enemy extends Entity {
             }
         }
         hitTimer--;
+    }
+
+    public String getTexturePath() {
+        return texturePath;
+    }
+
+    public void setTexturePath(String texturePath) {
+        this.texturePath = texturePath;
     }
 }

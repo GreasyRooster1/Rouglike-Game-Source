@@ -1,5 +1,6 @@
 package Game.Assets;
 
+import Game.Assets.Enemies.EnemiesAssetLoader;
 import Game.Assets.Other.OtherAssetLoader;
 import Game.Assets.PlayerAssets.PlayerAssetLoader;
 import Game.Assets.UIAssets.HealthBarAssets.HealthBarAssetLoader;
@@ -12,5 +13,6 @@ public class AssetLoader {
         WorldAssetLoader.loadAssets();
         UIAssetLoader.loadAssets();
         OtherAssetLoader.loadAssets();
+        EnemiesAssetLoader.loadAssets();
     }
 }
