@@ -160,7 +160,7 @@ public class Player extends Entity {
     public void hit(float atk) {
         health-=atk-(atk*(DEF/100));
         GameScene scene = (GameScene) getSceneManager().getSceneByName("gameScene");
-        scene.progressBar.setLerp(health/MAX_HEALTH);
+        scene.progressBar.setLerp(round(health)/MAX_HEALTH);
         Logger.log("player took a hit and is now at "+health+"HP","game");
         if(health<=0){
             kill();
