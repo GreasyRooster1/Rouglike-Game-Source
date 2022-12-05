@@ -24,7 +24,7 @@ import static System.Util.Utils.collision;
 import static java.lang.Math.*;
 
 public class Player extends Entity {
-    public float SPD,ATK,DEF,ATK_SPEED,MAX_HEALTH,EXP,LVL,KB;
+    public float SPD,ATK,DEF,ATK_SPEED,MAX_HEALTH,EXP,LVL,KB,HEALTH_REGEN;
     private float visibleXP;
     private float health;
     private boolean movingLeft;
@@ -48,8 +48,10 @@ public class Player extends Entity {
         ATK_SPEED = 10;
         MAX_HEALTH = 100;
         KB=20;
+        HEALTH_REGEN = 100;
         health = MAX_HEALTH;
         attackTimer = 0;
+
         addUpgrade(new AttackUpgrade());
         addUpgrade(new DefenceUpgrade());
         addUpgrade(new SpeedUpgrade());
@@ -98,6 +100,14 @@ public class Player extends Entity {
     public void everyFrame(){
         attackTimer-=1;
         updateRenderImage(0,false);
+        healthRegen();
+    }
+    void healthRegen(){
+        if(Setup.getApplet().frameCount%HEALTH_REGEN==0&&health<100){
+            health+=1;
+            updateHealthBar();
+            Logger.log("player regenerated 1 health point and is now at "+health+"HP","game");
+        }
     }
     void leftClick(PApplet applet){
         float x = 250;
@@ -159,13 +169,16 @@ public class Player extends Entity {
     }
     public void hit(float atk) {
         health-=atk-(atk*(DEF/100));
-        GameScene scene = (GameScene) getSceneManager().getSceneByName("gameScene");
-        scene.progressBar.setLerp(round(health)/MAX_HEALTH);
+        updateHealthBar();
         Logger.log("player took a hit and is now at "+health+"HP","game");
         if(health<=0){
             kill();
             health=0;
         }
+    }
+    public void updateHealthBar(){
+        GameScene scene = (GameScene) getSceneManager().getSceneByName("gameScene");
+        scene.progressBar.setLerp(round(health)/MAX_HEALTH);
     }
     public void addEXP(float expAdd) {
         EXP+=expAdd;

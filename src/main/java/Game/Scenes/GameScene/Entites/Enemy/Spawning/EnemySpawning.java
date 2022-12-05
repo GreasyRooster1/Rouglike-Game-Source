@@ -54,7 +54,7 @@ public class EnemySpawning {
             if(round(applet.random(0,20))==0){
                 spawn(new GreenSlime(0,0));
             }
-            if(round(applet.random(0,23))==0){
+            if(round(applet.random(0,35))==0){
                 spawn(new OrangeSlime(0,0));
             }
         }
@@ -64,6 +64,9 @@ public class EnemySpawning {
             if(round(applet.random(0,17))==0){
                 spawn(new GreenSlime(0,0));
             }
+            if(round(applet.random(0,30))==0){
+                spawn(new OrangeSlime(0,0));
+            }
         }
     }
     private static void level4Spawns(){
@@ -71,12 +74,18 @@ public class EnemySpawning {
             if(round(applet.random(0,16))==0){
                 spawn(new GreenSlime(0,0));
             }
+            if(round(applet.random(0,25))==0){
+                spawn(new OrangeSlime(0,0));
+            }
         }
     }
     private static void level5Spawns(){
         if(enemyCount<30){
             if(round(applet.random(0,16))==0){
                 spawn(new GreenSlime(0,0));
+            }
+            if(round(applet.random(0,20))==0){
+                spawn(new OrangeSlime(0,0));
             }
         }
     }
