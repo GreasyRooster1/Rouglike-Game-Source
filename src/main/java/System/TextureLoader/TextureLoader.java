@@ -42,7 +42,7 @@ public class TextureLoader {
                 }
             }
         }
-        return new AnimationTexture("other.missing","");
+        return getAnimationClass("other.missingAnim");
     }
     public static Texture registerTexture(String img, String name){
         Texture a = new Texture(assetsPath+img,name);

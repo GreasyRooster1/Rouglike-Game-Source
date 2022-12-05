@@ -2,6 +2,7 @@ package Game.Scenes.GameScene.Entites.Enemy.Spawning;
 
 import Game.Scenes.GameScene.Entites.Enemy.BaseEnemy.Enemy;
 import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.GreenSlime.GreenSlime;
+import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.OrangeSlime.OrangeSlime;
 import Game.Scenes.GameScene.Entites.Player.Player;
 import Game.Scenes.GameScene.GameScene;
 import System.Logging.Logger;
@@ -46,15 +47,15 @@ public class EnemySpawning {
             if(round(applet.random(0,20))==0){
                 spawn(new GreenSlime(0,0));
             }
-//            if(round(applet.random(0,40))==0){
-//                spawn(new GreenSlime(0,0));
-//            }
         }
     }
     private static void level2Spawns(){
         if(enemyCount<10){
             if(round(applet.random(0,20))==0){
                 spawn(new GreenSlime(0,0));
+            }
+            if(round(applet.random(0,23))==0){
+                spawn(new OrangeSlime(0,0));
             }
         }
     }

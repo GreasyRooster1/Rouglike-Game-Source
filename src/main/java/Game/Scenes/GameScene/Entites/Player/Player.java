@@ -159,7 +159,7 @@ public class Player extends Entity {
     }
     public void hit(float atk) {
         health-=atk-(atk*(DEF/100));
-        GameScene scene = (GameScene) getSceneManager().getCurrentScene();
+        GameScene scene = (GameScene) getSceneManager().getSceneByName("gameScene");
         scene.progressBar.setLerp(health/MAX_HEALTH);
         Logger.log("player took a hit and is now at "+health+"HP","game");
         if(health<=0){
@@ -170,7 +170,7 @@ public class Player extends Entity {
     public void addEXP(float expAdd) {
         EXP+=expAdd;
         visibleXP+=expAdd;
-        int nextLevel = (int) ceil(((LVL*LVL)*20));
+        int nextLevel = (int) ceil(((LVL*LVL)*5));
         if(EXP>=nextLevel){
             levelUp();
         }
