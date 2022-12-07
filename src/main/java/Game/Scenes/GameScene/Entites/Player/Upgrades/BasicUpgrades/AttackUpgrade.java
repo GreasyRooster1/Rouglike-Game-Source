@@ -9,7 +9,7 @@ public class AttackUpgrade extends Upgrade {
         super();
         setName("attackUpgrade");
         setTitle("Increase ATK");
-        setDescription("Increases player ATK power by 10HP. Primary items deal player ATK plus the items ATK. Secondary items are unaffected by this.");
+        setDescription("Increases player ATK power by 10HP. Primary & secondary items deal player ATK plus the items ATK.");
     }
     public void upgradeEvent(){
         GameScene scene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");

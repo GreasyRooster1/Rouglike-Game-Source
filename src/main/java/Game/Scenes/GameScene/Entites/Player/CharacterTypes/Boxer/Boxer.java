@@ -10,8 +10,8 @@ public class Boxer extends Player {
     public Boxer(float xa, float ya) {
         super(xa, ya);
         setAttackType("melee");
-        name="Boxer";
         setTextureName("basicCharacter");
+        name="Boxer";
         ATK_SPEED = 10;
         KB=20;
     }

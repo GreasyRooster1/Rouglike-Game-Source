@@ -6,6 +6,7 @@ import System.Logging.Logger;
 import System.Registers.SceneRegistry;
 import System.Scene.SceneManager;
 import System.TextureLoader.Texture;
+import System.Time.Time;
 import processing.core.PApplet;
 
 import static System.TextureLoader.TextureLoader.getTextures;
@@ -44,7 +45,9 @@ public class Setup {
     }
 
     public static void execution(){
+        Time.updateTime();
         sceneManager.renderCurrentScene();
         updateShortcuts();
+        Time.afterFrame();
     }
 }

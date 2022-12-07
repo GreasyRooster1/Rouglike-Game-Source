@@ -9,5 +9,6 @@ public class OrangeSlime extends BaseSlime {
         SPD = 2f;
         ATK=2;
         MAX_HEALTH=40;
+        EXP_VALUE = 2;
     }
 }

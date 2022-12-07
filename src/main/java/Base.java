@@ -4,7 +4,6 @@ import System.Setup.Setup;
 import processing.core.PApplet;
 
 public class Base extends PApplet {
-    public Setup SETUP;
 
     public void settings() {
         size(500, 500);

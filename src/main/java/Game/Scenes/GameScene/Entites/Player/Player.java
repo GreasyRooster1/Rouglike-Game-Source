@@ -14,6 +14,7 @@ import System.Entity.UI.ProgressBar.ProgressBarRender;
 import System.Logging.Logger;
 import System.Scene.Scene;
 import System.Setup.Setup;
+import System.Time.Time;
 import processing.core.PApplet;
 
 import java.util.Random;
@@ -42,7 +43,7 @@ public class Player extends Entity {
         attackType = "melee";
         EXP=0;
         LVL=1;
-        SPD = 2;
+        SPD = 3;
         ATK = 20;
         DEF = 0;
         ATK_SPEED = 10;
@@ -113,7 +114,7 @@ public class Player extends Entity {
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
-        float mag = 3f;
+        float mag = SPD;
         setX((float) (getX()+cos(dir)*mag));
         setY((float) (getY()+sin(dir)*mag));
         updateRenderImage(dir,true);
@@ -122,7 +123,7 @@ public class Player extends Entity {
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
-        float mag = -3f;
+        float mag = -SPD;
         setX((float) (getX()+cos(dir)*mag));
         setY((float) (getY()+sin(dir)*mag));
         updateRenderImage(dir,true);
@@ -220,11 +221,10 @@ public class Player extends Entity {
         return upgrades;
     }
     public void addUpgrade(Upgrade u) {
-        Logger.log(upgrades.toString(),"game");
         upgrades = (Upgrade[]) PApplet.append(upgrades,u);
     }
     public Upgrade getRandomUpgrade() {
-        Upgrade rnd = upgrades[(int) Setup.getApplet().random(0,upgrades.length-1)];
+        Upgrade rnd = upgrades[(int) Setup.getApplet().random(0,upgrades.length)];
         return rnd;
     }
 }

@@ -40,10 +40,14 @@ public class Enemy extends Entity {
     }
     public void everyFrame(){
         movement();
-        checkBullet();
+        checkDamage();
         checkHit();
+        enemyEveryFrame();
     }
-    void checkBullet(){
+    public void enemyEveryFrame(){
+
+    }
+    void checkDamage(){
         GameScene currentScene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");
         Player player = (Player) currentScene.player;
         for (Entity e : currentScene.entities) {
@@ -63,8 +67,12 @@ public class Enemy extends Entity {
             player.addEXP(EXP_VALUE);
             EnemySpawning.enemiesKilled++;
             EnemySpawning.enemyCount--;
+            onDeath();
             kill();
         }
+
+    }
+    public void onDeath(){
 
     }
     public void movement(){

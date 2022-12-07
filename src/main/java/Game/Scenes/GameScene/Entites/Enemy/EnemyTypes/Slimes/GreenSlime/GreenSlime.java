@@ -10,5 +10,6 @@ public class GreenSlime extends BaseSlime {
         SPD = 1.5f;
         ATK=1;
         MAX_HEALTH=40;
+        EXP_VALUE = 1;
     }
 }
