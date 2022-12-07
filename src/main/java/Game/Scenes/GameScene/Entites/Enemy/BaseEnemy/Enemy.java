@@ -64,10 +64,10 @@ public class Enemy extends Entity {
             }
         }
         if(health<=0){
+            onDeath();
             player.addEXP(EXP_VALUE);
             EnemySpawning.enemiesKilled++;
             EnemySpawning.enemyCount--;
-            onDeath();
             kill();
         }
 

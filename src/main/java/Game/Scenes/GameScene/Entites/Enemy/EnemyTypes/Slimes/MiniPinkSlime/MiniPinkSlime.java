@@ -6,9 +6,9 @@ public class MiniPinkSlime extends BaseSlime {
     public MiniPinkSlime(float xa, float ya) {
         super(xa, ya);
         setTexturePath("enemies.slimes.miniPinkSlime.jumpAnim");
-        SPD = 1.7f;
-        ATK = 0.5f;
-        MAX_HEALTH = 20;
+        SPD = 2f;
+        ATK = 1f;
+        MAX_HEALTH = 30;
         EXP_VALUE = 1;
         setW(16);
         setH(16);
