@@ -13,7 +13,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class Enemy extends Entity {
-    public float SPD,ATK,DEF,HIT_SPEED,MAX_HEALTH,EXP_VALUE;
+    public float SPD,ATK,DEF, ATTACK_SPEED,MAX_HEALTH,EXP_VALUE;
     float health;
     float hitTimer;
     private String texturePath;
@@ -24,7 +24,7 @@ public class Enemy extends Entity {
         SPD = 2;
         ATK = 1;
         DEF = 100;
-        HIT_SPEED = 20;
+        ATTACK_SPEED = 20;
         MAX_HEALTH = 100;
         EXP_VALUE = 1;
         setXvel(0);
@@ -86,14 +86,19 @@ public class Enemy extends Entity {
     }
     void checkHit(){
         GameScene currentScene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");
-        Player player = (Player) currentScene.player;
+        Player player = currentScene.player;
         if(hitTimer<=0) {
             if (collision(currentScene.player, this)) {
-                hitTimer=HIT_SPEED;
                 player.hit(ATK);
             }
+            hitTimer= ATTACK_SPEED;
+            onAttack();
         }
         hitTimer--;
+
+    }
+    public void onAttack(){
+
     }
 
     public String getTexturePath() {

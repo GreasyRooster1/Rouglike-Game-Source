@@ -6,6 +6,7 @@ import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.BlueSlime.BlueSlime
 import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.GreenSlime.GreenSlime;
 import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.OrangeSlime.OrangeSlime;
 import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.PinkSlime.PinkSlime;
+import Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.TankSlime.TankSlime;
 import Game.Scenes.GameScene.Entites.Player.Player;
 import Game.Scenes.GameScene.GameScene;
 import System.Logging.Logger;
@@ -33,6 +34,9 @@ public class EnemySpawning {
             case(5):level5Spawns();break;
             case(6):level6Spawns();break;
             case(7):level7Spawns();break;
+            case(8):level8Spawns();break;
+            case(9):level9Spawns();break;
+            case(10):level10Spawns();break;
             default:levelDefaultSpawns();break;
         }
     }
@@ -43,7 +47,7 @@ public class EnemySpawning {
             if(maxEnemies<200) {
                 maxEnemies += 5;
             }
-            Logger.log("Spawning level up!","game");
+            Logger.log("Spawning level up to level "+level,"game");
         }
     }
 
@@ -137,8 +141,50 @@ public class EnemySpawning {
             if(round(applet.random(0,20))==0){
                 spawn(new BlueSlime(0,0));
             }
+            if(round(applet.random(0,40))==0){
+                spawn(new BigSlime(0,0));
+            }
+        }
+    }
+    public static void level8Spawns(){
+        if(enemyCount<35){
+            if(round(applet.random(0,40))==0){
+                spawn(new PinkSlime(0,0));
+            }
+            if(round(applet.random(0,30))==0){
+                spawn(new BlueSlime(0,0));
+            }
+            if(round(applet.random(0,35))==0){
+                spawn(new BigSlime(0,0));
+            }
+            if(round(applet.random(0,45))==0){
+                spawn(new TankSlime(0,0));
+            }
+        }
+    }
+    public static void level9Spawns(){
+        if(enemyCount<35){
+            if(round(applet.random(0,35))==0){
+                spawn(new BlueSlime(0,0));
+            }
+            if(round(applet.random(0,27))==0){
+                spawn(new BigSlime(0,0));
+            }
+            if(round(applet.random(0,35))==0){
+                spawn(new TankSlime(0,0));
+            }
+        }
+    }
+    public static void level10Spawns(){
+        if(enemyCount<35){
+            if(round(applet.random(0,40))==0){
+                spawn(new BlueSlime(0,0));
+            }
             if(round(applet.random(0,25))==0){
                 spawn(new BigSlime(0,0));
+            }
+            if(round(applet.random(0,30))==0){
+                spawn(new TankSlime(0,0));
             }
         }
     }

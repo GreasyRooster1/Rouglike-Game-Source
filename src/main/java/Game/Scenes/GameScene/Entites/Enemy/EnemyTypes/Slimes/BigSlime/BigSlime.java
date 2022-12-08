@@ -8,8 +8,8 @@ public class BigSlime extends BaseSlime {
         setTexturePath("enemies.slimes.bigSlime.jumpAnim");
         SPD = 2f;
         ATK=13;
-        MAX_HEALTH=250;
-        EXP_VALUE = 7;
+        MAX_HEALTH=200;
+        EXP_VALUE = 6;
         setW(64);
         setH(64);
         setMovementFrames(new int[]{4,5,6,7,8,9,10});

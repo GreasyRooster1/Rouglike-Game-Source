@@ -6,6 +6,6 @@ import static System.Util.CreateAnimation.createAnimation;
 public class BigSlimeAssetLoader {
     public static void loadAssets(){
         registerTexture("Assets\\Enemies\\Slimes\\BigSlime\\Basic.png", "enemies.slimes.bigSlime.basic");
-        createAnimation("Assets\\Enemies\\Slimes\\BigSlime\\JumpAnim", "enemies.slimes.bigSlime.jumpAnim",5,7);
+        createAnimation("Assets\\Enemies\\Slimes\\BigSlime\\JumpAnim", "enemies.slimes.bigSlime.jumpAnim",10,7);
     }
 }

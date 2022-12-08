@@ -190,7 +190,6 @@ public class Player extends Entity {
         }
         GameScene scene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");
         scene.expBar.setLerp((visibleXP/nextLevel));
-        Logger.log(String.valueOf(visibleXP),"game");
     }
     public void levelUp(){
         LVL+=1;

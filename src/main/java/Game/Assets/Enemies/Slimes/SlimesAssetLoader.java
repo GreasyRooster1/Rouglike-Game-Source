@@ -6,6 +6,7 @@ import Game.Assets.Enemies.Slimes.GreenSlime.GreenSlimeAssetLoader;
 import Game.Assets.Enemies.Slimes.MiniPinkSlime.MiniPinkSlimeAssetLoader;
 import Game.Assets.Enemies.Slimes.OrangeSlime.OrangeSlimeAssetLoader;
 import Game.Assets.Enemies.Slimes.PinkSlime.PinkSlimeAssetLoader;
+import Game.Assets.Enemies.Slimes.TankSlime.TankSlimeAssetLoader;
 
 public class SlimesAssetLoader {
     public static void loadAssets(){
@@ -15,5 +16,6 @@ public class SlimesAssetLoader {
         BigSlimeAssetLoader.loadAssets();
         PinkSlimeAssetLoader.loadAssets();
         MiniPinkSlimeAssetLoader.loadAssets();
+        TankSlimeAssetLoader.loadAssets();
     }
 }
