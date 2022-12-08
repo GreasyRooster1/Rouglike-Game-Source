@@ -10,7 +10,7 @@ import processing.core.PApplet;
 public class TankSlime extends BaseSlime {
     public TankSlime(float xa, float ya) {
         super(xa, ya);
-        setTexturePath("enemies.slimes.tankSlime.jumpAnim");
+        setTexturePath("enemies.slimes.tankSlime.left.jumpAnim");
         SPD = 1f;
         ATK=20;
         MAX_HEALTH=250;
@@ -24,6 +24,14 @@ public class TankSlime extends BaseSlime {
         Player player = ((GameScene)Setup.getSceneManager().getSceneByName("gameScene")).player;
         if(PApplet.dist(getX(),getY(),player.getX(),player.getY())<500){
             Setup.getSceneManager().getCurrentScene().addEntity(new TankSlimeBullet(getX(),getY()));
+        }
+    }
+    public void slimeEveryFrame(){
+        Player player = ((GameScene)Setup.getSceneManager().getSceneByName("gameScene")).player;
+        if(getX()<=player.getX()){
+            setTexturePath("enemies.slimes.tankSlime.right.jumpAnim");
+        }else{
+            setTexturePath("enemies.slimes.tankSlime.left.jumpAnim");
         }
     }
 }

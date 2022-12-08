@@ -7,6 +7,7 @@ import System.Entity.BaseEntity.Renders.EntityImageRender;
 import System.Setup.Setup;
 import processing.core.PApplet;
 
+import static System.Util.Utils.collision;
 import static processing.core.PApplet.cos;
 import static processing.core.PApplet.sin;
 
@@ -26,6 +27,10 @@ public class TankSlimeBullet extends Entity {
     public void everyFrame(){
         Player player = ((GameScene)Setup.getSceneManager().getSceneByName("gameScene")).player;
         if(PApplet.dist(getX(),getY(),player.getX(),player.getY())>1000){
+            kill();
+        }
+        if(collision(this,player)){
+            player.hit(7);
             kill();
         }
     }
