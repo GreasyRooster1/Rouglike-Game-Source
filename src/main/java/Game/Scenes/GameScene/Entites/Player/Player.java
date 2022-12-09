@@ -4,6 +4,7 @@ import Game.Scenes.GameScene.Entites.Bullet.Bullet;
 import Game.Scenes.GameScene.Entites.Player.DamageTypes.HitBox;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.AttackUpgrade;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.DefenceUpgrade;
+import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.HealthUpgrade;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.SpeedUpgrade;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.Upgrade;
 import Game.Scenes.GameScene.GameScene;
@@ -56,6 +57,7 @@ public class Player extends Entity {
         addUpgrade(new AttackUpgrade());
         addUpgrade(new DefenceUpgrade());
         addUpgrade(new SpeedUpgrade());
+        addUpgrade(new HealthUpgrade());
         setUpgrades();
     }
 
