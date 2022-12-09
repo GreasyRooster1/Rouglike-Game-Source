@@ -1,5 +1,6 @@
 package Game.Scenes.GameScene.Entites.Enemy.EnemyTypes.Slimes.TankSlime.TankSlimeBullet;
 
+import Game.Scenes.GameScene.Entites.Enemy.BaseEnemy.Enemy;
 import Game.Scenes.GameScene.Entites.Player.Player;
 import Game.Scenes.GameScene.GameScene;
 import System.Entity.BaseEntity.Entity;
@@ -11,7 +12,7 @@ import static System.Util.Utils.collision;
 import static processing.core.PApplet.cos;
 import static processing.core.PApplet.sin;
 
-public class TankSlimeBullet extends Entity {
+public class TankSlimeBullet extends Enemy {
     public TankSlimeBullet(float xa, float ya) {
         super(xa, ya);
         Player player = ((GameScene)Setup.getSceneManager().getSceneByName("gameScene")).player;
@@ -30,8 +31,11 @@ public class TankSlimeBullet extends Entity {
             kill();
         }
         if(collision(this,player)){
-            player.hit(7);
+            player.hit(7,this);
             kill();
         }
+    }
+    public void onStartup(){
+
     }
 }

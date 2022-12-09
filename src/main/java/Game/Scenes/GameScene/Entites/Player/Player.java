@@ -1,22 +1,17 @@
 package Game.Scenes.GameScene.Entites.Player;
 
 import Game.Scenes.GameScene.Entites.Bullet.Bullet;
+import Game.Scenes.GameScene.Entites.Enemy.BaseEnemy.Enemy;
 import Game.Scenes.GameScene.Entites.Player.DamageTypes.HitBox;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.*;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.Upgrade;
 import Game.Scenes.GameScene.GameScene;
 import System.Entity.BaseEntity.Entity;
-import System.Entity.BaseEntity.Renders.EntityRender;
 import System.Entity.UI.ProgressBar.ProgressBar;
-import System.Entity.UI.ProgressBar.ProgressBarRender;
 import System.Logging.Logger;
 import System.Scene.Scene;
 import System.Setup.Setup;
-import System.Time.Time;
 import processing.core.PApplet;
-
-import java.util.Random;
-import java.util.Set;
 
 import static System.Setup.Setup.getSceneManager;
 import static System.Util.Utils.collision;
@@ -33,6 +28,7 @@ public class Player extends Entity {
     private ProgressBar progressBar;
     private Upgrade[] upgrades = {};
     private String attackType;
+    private int visibleHitTimer = 0;
 
     public Player(float xa, float ya) {
         super(xa, ya);
@@ -50,6 +46,7 @@ public class Player extends Entity {
         HEALTH_REGEN = 100;
         health = MAX_HEALTH;
         attackTimer = 0;
+        setFriction(0.6f);
 
         addUpgrade(new AttackUpgrade());
         addUpgrade(new DefenceUpgrade());
@@ -99,9 +96,13 @@ public class Player extends Entity {
         }
     }
     public void everyFrame(){
-        attackTimer-=1;
+        updateTimers();
         updateRenderImage(0,false);
         healthRegen();
+    }
+    void updateTimers(){
+        attackTimer-=1;
+        visibleHitTimer-=1;
     }
     void healthRegen(){
         if(Setup.getApplet().frameCount%HEALTH_REGEN==0&&health<MAX_HEALTH){
@@ -168,14 +169,23 @@ public class Player extends Entity {
             attackTimer = ATK_SPEED;
         }
     }
-    public void hit(float atk) {
+    public void hit(float atk, Enemy e) {
         health-=atk-(atk*(DEF/100));
         updateHealthBar();
         Logger.log("player took a hit and is now at "+health+"HP","game");
+        visibleHitTimer=5;
         if(health<=0){
             kill();
             health=0;
         }
+        knockBackSelf(e.KB,e);
+    }
+    void knockBackSelf(float val, Entity e){
+        float x = e.getX();
+        float y = e.getY();
+        float dir = PApplet.atan2(getY()-y,getX()-x);
+        setXvel((float) ((cos(dir)*val)));
+        setYvel((float) ((sin(dir)*val)));
     }
     public void updateHealthBar(){
         GameScene scene = (GameScene) getSceneManager().getSceneByName("gameScene");
@@ -225,5 +235,9 @@ public class Player extends Entity {
     public Upgrade getRandomUpgrade() {
         Upgrade rnd = upgrades[(int) Setup.getApplet().random(0,upgrades.length)];
         return rnd;
+    }
+
+    public int getVisibleHitTimer() {
+        return visibleHitTimer;
     }
 }

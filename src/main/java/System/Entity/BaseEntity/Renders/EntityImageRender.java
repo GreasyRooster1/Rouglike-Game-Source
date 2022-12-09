@@ -20,6 +20,7 @@ public class EntityImageRender extends EntityRender {
         Scene currentScene = Setup.getSceneManager().getCurrentScene();
         float camX = currentScene.getCamera().getCamX();
         float camY = currentScene.getCamera().getCamY();
+        preRendering(e);
         if(!useCamera){
             camX = 0;
             camY = 0;
@@ -35,5 +36,12 @@ public class EntityImageRender extends EntityRender {
             applet.rect(e.getX() + camX, e.getY() + camY, e.getW()/2, e.getH()/2);
             applet.rect(e.getX()+e.getW()/2 + camX, e.getY()+e.getH()/2 + camY, e.getW()/2, e.getH()/2);
         }
+        postRendering(e);
+    }
+    public void preRendering(Entity e){
+
+    }
+    public void postRendering(Entity e){
+
     }
 }
