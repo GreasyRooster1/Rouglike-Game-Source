@@ -2,10 +2,7 @@ package Game.Scenes.GameScene.Entites.Player;
 
 import Game.Scenes.GameScene.Entites.Bullet.Bullet;
 import Game.Scenes.GameScene.Entites.Player.DamageTypes.HitBox;
-import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.AttackUpgrade;
-import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.DefenceUpgrade;
-import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.HealthUpgrade;
-import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.SpeedUpgrade;
+import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.*;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.Upgrade;
 import Game.Scenes.GameScene.GameScene;
 import System.Entity.BaseEntity.Entity;
@@ -58,6 +55,7 @@ public class Player extends Entity {
         addUpgrade(new DefenceUpgrade());
         addUpgrade(new SpeedUpgrade());
         addUpgrade(new HealthUpgrade());
+        addUpgrade(new KnockbackUpgrade());
         setUpgrades();
     }
 
@@ -106,7 +104,7 @@ public class Player extends Entity {
         healthRegen();
     }
     void healthRegen(){
-        if(Setup.getApplet().frameCount%HEALTH_REGEN==0&&health<100){
+        if(Setup.getApplet().frameCount%HEALTH_REGEN==0&&health<MAX_HEALTH){
             health+=1;
             updateHealthBar();
             Logger.log("player regenerated 1 health point and is now at "+health+"HP","game");
