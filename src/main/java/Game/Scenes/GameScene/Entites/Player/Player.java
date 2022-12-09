@@ -186,12 +186,12 @@ public class Player extends Entity {
     public void addEXP(float expAdd) {
         EXP+=expAdd;
         visibleXP+=expAdd;
-        int nextLevel = (int) ceil(((LVL*LVL)*5));
-        if(EXP>=nextLevel){
+        int nextLevel = (int) ceil(((LVL*LVL)*2));
+        if(visibleXP>=nextLevel){
             levelUp();
         }
         GameScene scene = (GameScene) Setup.getSceneManager().getSceneByName("gameScene");
-        scene.expBar.setLerp((visibleXP/nextLevel));
+        scene.expBar.setLerp(round(visibleXP/nextLevel*10)/10f);
     }
     public void levelUp(){
         LVL+=1;
