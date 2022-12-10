@@ -41,7 +41,7 @@ public class EnemySpawning {
         }
     }
     private static void levelUp(){;
-        if(enemiesKilled>((10*level)+10)){
+        if(enemiesKilled>((2*level)+10)){
             level+=1;
             enemiesKilled = 0;
             if(maxEnemies<200) {

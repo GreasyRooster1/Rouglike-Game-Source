@@ -53,6 +53,7 @@ public class Player extends Entity {
         addUpgrade(new SpeedUpgrade());
         addUpgrade(new HealthUpgrade());
         addUpgrade(new KnockbackUpgrade());
+        addUpgrade(new RegenUpgrade());
         setUpgrades();
     }
 
