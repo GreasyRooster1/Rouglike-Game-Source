@@ -2,15 +2,18 @@ package Game.Scenes.GameScene.Entites.Player;
 
 import Game.Scenes.GameScene.Entites.Bullet.Bullet;
 import Game.Scenes.GameScene.Entites.Enemy.BaseEnemy.Enemy;
+import Game.Scenes.GameScene.Entites.Player.AttackParticles.AttackParticle;
 import Game.Scenes.GameScene.Entites.Player.DamageTypes.HitBox;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.*;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.Upgrade;
 import Game.Scenes.GameScene.GameScene;
 import System.Entity.BaseEntity.Entity;
+import System.Entity.BaseEntity.Renders.EntityImageRender;
 import System.Entity.UI.ProgressBar.ProgressBar;
 import System.Logging.Logger;
 import System.Scene.Scene;
 import System.Setup.Setup;
+import System.TextureLoader.TextureLoader;
 import processing.core.PApplet;
 
 import static System.Setup.Setup.getSceneManager;
@@ -19,16 +22,20 @@ import static java.lang.Math.*;
 
 public class Player extends Entity {
     public float SPD,ATK,DEF,ATK_SPEED,MAX_HEALTH,EXP,LVL,KB,HEALTH_REGEN;
+    private float movementSpeed = SPD;
     private float visibleXP;
     private float health;
     private boolean movingLeft;
     private float attackTimer;
     public String name;
-    private String textureName;
+    private String textureName,attackAnimation;
     private ProgressBar progressBar;
     private Upgrade[] upgrades = {};
     private String attackType;
     private int visibleHitTimer = 0;
+    private Entity attackAnimEntity;
+    private boolean attacking = false;
+    private float dashTimer = 0;
 
     public Player(float xa, float ya) {
         super(xa, ya);
@@ -46,6 +53,7 @@ public class Player extends Entity {
         HEALTH_REGEN = 100;
         health = MAX_HEALTH;
         attackTimer = 0;
+        movementSpeed = SPD;
         setFriction(0.6f);
 
         addUpgrade(new AttackUpgrade());
@@ -64,25 +72,35 @@ public class Player extends Entity {
         setW(64);
         setH(64);
     }
-    void updateRenderImage(float dir,boolean mouse){
+    void updateRenderImage(float dir,boolean mouse) {
 
-        if(!mouse) {
+        if (!mouse) {
             if (movingLeft) {
-                setRenderImage("player."+textureName+".idleLeft");
+                setRenderImage("player." + textureName + ".idleLeft");
             } else {
-                setRenderImage("player."+textureName+".idleRight");
+                setRenderImage("player." + textureName + ".idleRight");
             }
-        }else{
-            if(cos(dir)>0){
-                movingLeft=false;
+        } else {
+            if (cos(dir) > 0) {
+                movingLeft = false;
                 StringBuilder sb = new StringBuilder("player.");
                 setRenderImage(sb.append(textureName).append(".rightWalk").toString());
-            }else if(cos(dir)<0){
-                movingLeft=true;
+            } else if (cos(dir) < 0) {
+                movingLeft = true;
                 StringBuilder sb = new StringBuilder("player.");
                 setRenderImage(sb.append(textureName).append(".leftWalk").toString());
             }
         }
+    }
+    void attackAnimSetup(){
+        String atkName = "player." + textureName + "."+attackAnimation;
+        TextureLoader.getAnimationClass(atkName).setFrame(0);
+        for(int i=0;i<20;i++){
+            AttackParticle p = new AttackParticle(getX()+getW()/2,getY()+getH()/2);
+            ((EntityImageRender)p.getRender()).texturePath = atkName;
+            Setup.getSceneManager().getCurrentScene().addEntity(p);
+        }
+        attacking = true;
     }
 
     //events
@@ -100,6 +118,8 @@ public class Player extends Entity {
         updateTimers();
         updateRenderImage(0,false);
         healthRegen();
+        updateDash();
+        characterTypeEveryFrame();
     }
     void updateTimers(){
         attackTimer-=1;
@@ -116,7 +136,7 @@ public class Player extends Entity {
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
-        float mag = SPD;
+        float mag = movementSpeed;
         setX((float) (getX()+cos(dir)*mag));
         setY((float) (getY()+sin(dir)*mag));
         updateRenderImage(dir,true);
@@ -125,31 +145,46 @@ public class Player extends Entity {
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
-        float mag = -SPD;
+        float mag = -movementSpeed;
         setX((float) (getX()+cos(dir)*mag));
         setY((float) (getY()+sin(dir)*mag));
         updateRenderImage(dir,true);
     }
+    public void characterTypeEveryFrame(){
+
+    }
 
     public void setUpgrades(){}
     public void whileKey(char key){
+        if(key==' ') {
+            attack();
+            onAttack();
+        }
+    }
+
+    //attack stuff
+    void attack(){
         Scene currentScene = getSceneManager().getCurrentScene();
         PApplet applet = Setup.getApplet();
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
         float mag = 10f;
-        if(key==' ') {
-            if(attackType=="ranged") {
-                ranged(dir, mag, currentScene);
-            }
-            if(attackType=="melee") {
-                melee(dir, mag, currentScene);
-            }
+        if(attackType=="ranged") {
+            ranged(dir, mag, currentScene);
+        }
+        if(attackType=="melee") {
+            melee(dir, mag, currentScene);
+        }
+        if(attackAnimEntity!=null){
+            attackAnimEntity.setX((float) ((getX()+getW()/2)+cos(dir)*10f));
+            attackAnimEntity.setY((float) ((getY()+getH()/2)+sin(dir)*10f));
+            currentScene.addEntity(attackAnimEntity);
         }
     }
+    public void onAttack(){
 
-    //attack stuff
+    }
 
     public void ranged(float dir,float mag,Scene currentScene){
         if (attackTimer <= 0){
@@ -158,16 +193,17 @@ public class Player extends Entity {
             bullet.setYvel((float) (sin(dir) * mag));
             currentScene.addEntity(bullet);
             attackTimer = ATK_SPEED;
+            attackAnimSetup();
         }
     }
     public void melee(float dir,float mag,Scene currentScene){
         if (attackTimer <= 0){
-            HitBox hitBox = new HitBox((float) (getX()+cos(dir)*30), (float) (getY()+sin(dir)*30));
-            hitBox.setW(64);
-            hitBox.setH(64);
-            hitBox.setDamage(ATK);
-            currentScene.addEntity(hitBox);
+            HitBox hit = new HitBox(getX() + getW() / 2, getY() + getH() / 2);
+            hit.setXvel((float) (cos(dir) * mag));
+            hit.setYvel((float) (sin(dir) * mag));
+            currentScene.addEntity(hit);
             attackTimer = ATK_SPEED;
+            attackAnimSetup();
         }
     }
     public void hit(float atk, Enemy e) {
@@ -207,7 +243,28 @@ public class Player extends Entity {
         visibleXP=0;
         Setup.getSceneManager().changeScene("upgradeScene");
     }
-
+    public void dash(float dir,float length,float speed,boolean hit){
+        Scene currentScene = getSceneManager().getCurrentScene();
+        dashTimer = length;
+        movementSpeed = speed;
+        if(hit) {
+            for (int i = 0; i < length * speed; i += 20) {
+                HitBox hitBox = new HitBox((float) (getX() + cos(dir) * i), (float) (getY() + sin(dir) * i));
+                hitBox.setW(64);
+                hitBox.setH(64);
+                hitBox.setDamage(ATK);
+                currentScene.addEntity(hitBox);
+            }
+        }
+    }
+    public void updateDash(){
+        if(dashTimer>1) {
+            dashTimer -= 1;
+        }else{
+            dashTimer = 0;
+            movementSpeed = SPD;
+        }
+    }
     //getters and setters
 
     public void setRenderImage(String s){
@@ -240,5 +297,19 @@ public class Player extends Entity {
 
     public int getVisibleHitTimer() {
         return visibleHitTimer;
+    }
+
+    public void setAttackAnimEntity(Entity attackAnimEntity) {
+        this.attackAnimEntity = attackAnimEntity;
+    }
+    public Entity getAttackAnimEntity() {
+        return attackAnimEntity;
+    }
+
+    public void setAttackAnimation(String attackAnimation) {
+        this.attackAnimation = attackAnimation;
+    }
+    public float getDashTimer() {
+        return dashTimer;
     }
 }

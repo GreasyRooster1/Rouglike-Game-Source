@@ -8,11 +8,7 @@ public class Texture{
     protected String name;
 
     public Texture(String path, String n) {
-        PImage img = Setup.getApplet().loadImage(path);
-        PGraphics g = createGraphics(img.width, img.height, P3D);
-        g.image(img,0,0);
-        ((PGraphicsOpenGL) g).textureSampling(2);
-        texture = g.get();
+        texture = Setup.getApplet().loadImage(path);
         name = n;
     }
 
