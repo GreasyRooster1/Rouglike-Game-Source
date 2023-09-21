@@ -7,7 +7,6 @@ import System.Setup.Setup;
 import System.TextureLoader.TextureLoader;
 import processing.core.PApplet;
 import processing.core.PImage;
-import sun.rmi.runtime.Log;
 
 public class EntityImageRender extends EntityRender {
     public String texturePath;
