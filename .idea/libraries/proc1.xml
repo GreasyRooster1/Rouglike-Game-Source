@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="proc1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/proc_jar/proc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="current build">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/builds/current build/proc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/out/builds/current build/main.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
