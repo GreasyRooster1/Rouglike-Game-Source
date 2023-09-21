@@ -158,32 +158,21 @@ public class Player extends Entity {
     public void whileKey(char key){
         if(key==' ') {
             attack();
-            onAttack();
         }
     }
 
     //attack stuff
-    void attack(){
+    public void attack(){
+
+    }
+
+    public float attackDir(){
         Scene currentScene = getSceneManager().getCurrentScene();
         PApplet applet = Setup.getApplet();
         float x = 250;
         float y = 250;
         float dir = PApplet.atan2(applet.mouseY-y,applet.mouseX-x);
-        float mag = 10f;
-        if(attackType=="ranged") {
-            ranged(dir, mag, currentScene);
-        }
-        if(attackType=="melee") {
-            melee(dir, mag, currentScene);
-        }
-        if(attackAnimEntity!=null){
-            attackAnimEntity.setX((float) ((getX()+getW()/2)+cos(dir)*10f));
-            attackAnimEntity.setY((float) ((getY()+getH()/2)+sin(dir)*10f));
-            currentScene.addEntity(attackAnimEntity);
-        }
-    }
-    public void onAttack(){
-
+        return dir;
     }
 
     public void ranged(float dir,float mag,Scene currentScene){
@@ -198,10 +187,10 @@ public class Player extends Entity {
     }
     public void melee(float dir,float mag,Scene currentScene){
         if (attackTimer <= 0){
-            HitBox hit = new HitBox(getX() + getW() / 2, getY() + getH() / 2);
-            hit.setXvel((float) (cos(dir) * mag));
-            hit.setYvel((float) (sin(dir) * mag));
-            currentScene.addEntity(hit);
+            Entity bullet = new Bullet(getX() + getW() / 2, getY() + getH() / 2);
+            bullet.setXvel((float) (cos(dir) * mag));
+            bullet.setYvel((float) (sin(dir) * mag));
+            currentScene.addEntity(bullet);
             attackTimer = ATK_SPEED;
             attackAnimSetup();
         }

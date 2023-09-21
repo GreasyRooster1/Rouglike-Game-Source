@@ -130,6 +130,10 @@ public class Entity {
         return x;
     }
 
+    public float getCenterX() {
+        return x+w/2;
+    }
+
     public void setX(float x) {
         this.x = x;
     }
@@ -138,6 +142,9 @@ public class Entity {
         return y;
     }
 
+    public float getCenterY() {
+        return y+h/2;
+    }
     public void setY(float y) {
         this.y = y;
     }

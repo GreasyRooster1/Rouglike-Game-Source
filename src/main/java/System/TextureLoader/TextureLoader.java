@@ -4,7 +4,6 @@ import System.Logging.Logger;
 import System.TextureLoader.Animation.AnimationTexture;
 import processing.core.PApplet;
 import processing.core.PImage;
-import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.util.Objects;
