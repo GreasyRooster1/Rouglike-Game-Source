@@ -6,6 +6,9 @@ import System.Setup.Setup;
 import System.Util.Utils;
 import processing.core.PApplet;
 
+import static processing.core.PApplet.pow;
+import static processing.core.PApplet.sqrt;
+
 public class Entity {
     private float x,y;
     private float w,h;
@@ -21,8 +24,8 @@ public class Entity {
     private final float ID=Setup.getApplet().random(-99999,99999);
     private EntityRender entityRender;
     private boolean isPaused;
-    public Entity(float xa, float ya){
-        isUI=false;
+    public Entity(float xa, float ya) {
+        isUI = false;
         isPaused = false;
         x = xa;
         y = ya;
@@ -32,10 +35,11 @@ public class Entity {
         entityRender = new EntityRender();
         mouseDownLast = false;
         dead = false;
-        decay=0;
-        life=100;
+        decay = 0;
+        life = 100;
         onStartup();
     }
+
     public void update(){
         if(!isPaused) {
             checkLife();
@@ -244,5 +248,9 @@ public class Entity {
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+
+    protected float getMag() {
+        return sqrt(pow(getXvel(),2)+pow(getYvel(),2));
     }
 }

@@ -54,7 +54,9 @@ public class Enemy extends Entity {
         for (Entity e : currentScene.entities) {
             if(DamageEntity.class.isAssignableFrom(e.getClass())){
                 if(collision(getX(),getY(),getW(),getH(),e.getX(),e.getY(),e.getW(),e.getH())) {
-                    e.kill();
+                    if(((DamageEntity) e).dieOnHit) {
+                        e.kill();
+                    }
                     health -= ((DamageEntity) e).getDamage();
                     float x = currentScene.player.getX();
                     float y = currentScene.player.getY();

@@ -3,6 +3,7 @@ package Game.Scenes.GameScene.Entites.Player;
 import Game.Scenes.GameScene.Entites.Bullet.Bullet;
 import Game.Scenes.GameScene.Entites.Enemy.BaseEnemy.Enemy;
 import Game.Scenes.GameScene.Entites.Player.AttackParticles.AttackParticle;
+import Game.Scenes.GameScene.Entites.Player.CharacterTypes.Boxer.Boxer;
 import Game.Scenes.GameScene.Entites.Player.DamageTypes.HitBox;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.BasicUpgrades.*;
 import Game.Scenes.GameScene.Entites.Player.Upgrades.Upgrade;
@@ -157,17 +158,23 @@ public class Player extends Entity {
     public void setUpgrades(){}
     public void whileKey(char key){
         if(key==' ') {
-            attack();
+            attackIfAble();
         }
     }
 
     //attack stuff
+    public void attackIfAble(){
+        if(attackTimer<=0){
+            attackTimer = ATK_SPEED;
+            attack();
+        }
+    }
+
     public void attack(){
 
     }
 
     public float attackDir(){
-        Scene currentScene = getSceneManager().getCurrentScene();
         PApplet applet = Setup.getApplet();
         float x = 250;
         float y = 250;
@@ -175,6 +182,7 @@ public class Player extends Entity {
         return dir;
     }
 
+    @Deprecated
     public void ranged(float dir,float mag,Scene currentScene){
         if (attackTimer <= 0){
             Entity bullet = new Bullet(getX() + getW() / 2, getY() + getH() / 2);
@@ -185,6 +193,7 @@ public class Player extends Entity {
             attackAnimSetup();
         }
     }
+    @Deprecated
     public void melee(float dir,float mag,Scene currentScene){
         if (attackTimer <= 0){
             Entity bullet = new Bullet(getX() + getW() / 2, getY() + getH() / 2);

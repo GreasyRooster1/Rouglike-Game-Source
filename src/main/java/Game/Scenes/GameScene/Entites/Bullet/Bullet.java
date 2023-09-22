@@ -8,6 +8,7 @@ import System.Setup.Setup;
 import static processing.core.PApplet.dist;
 
 public class Bullet extends DamageEntity {
+
     public Bullet(float xa, float ya) {
         super(xa, ya);
         setW(5);

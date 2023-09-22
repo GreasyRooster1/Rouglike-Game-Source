@@ -4,6 +4,7 @@ import System.Entity.BaseEntity.Entity;
 
 public class DamageEntity extends Entity {
     private float amount;
+    public boolean dieOnHit = true;
 
     public DamageEntity(float xa, float ya) {
         super(xa, ya);
